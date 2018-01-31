@@ -2,7 +2,7 @@
   "name": "has-git",
   "version": "0.0.1",
   "engines": {
-    "node": "8.x.x"
+    "node": ">=8.3"
   },
   "main": "index.js",
   "license": "MIT",
