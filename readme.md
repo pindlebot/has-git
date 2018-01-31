@@ -1,5 +1,7 @@
 ## has-git
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/unshift/has-git.svg)](https://greenkeeper.io/)
+
 - hasGit: Checks whether git is initialized for the project.
 - getConfig: Returns the projects git config with `git config --list`
 - isDirty: Checks whether the project has untracked changes.
