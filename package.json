@@ -1,6 +1,9 @@
 {
   "name": "has-git",
   "version": "0.0.1",
+  "engines": {
+    "node": "8.x.x"
+  },
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
