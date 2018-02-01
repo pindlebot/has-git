@@ -1,7 +1,7 @@
 ## has-git
 
 - hasGit: Checks whether git is initialized for the project.
-- getConfig: Returns the projects git config with `git config --list`
+- getConfig: Returns the project's git config with `git config --list`
 - isDirty: Checks whether the project has untracked changes.
 
 ```js
@@ -16,8 +16,8 @@ getConfig().then(result => {
   /*
   {
     user: { 
-      name: 'Ben', 
-      email: 'menubar@protonmail.com' 
+      name: 'Steve', 
+      email: 'steve@apple.com' 
     },
     core: { 
       repositoryformatversion: '0',
