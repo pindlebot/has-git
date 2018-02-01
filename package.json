@@ -7,7 +7,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "npm-patch": "npm-patch",
     "fix": "standard --fix --verbose | snazzy"
   },
   "dependencies": {
@@ -16,7 +15,6 @@
     "lodash.set": "^4.3.2"
   },
   "devDependencies": {
-    "npm-patch": "^0.0.23",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3"
   },
