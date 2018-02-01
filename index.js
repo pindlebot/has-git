@@ -1,10 +1,8 @@
 const fs = require('fs')
+const path = require('path')
 const pathExists = require('util').promisify(fs.access)
 const execa = require('execa')
 const set = require('lodash.set')
-
-const appRoot = require('app-root-path').path
-const pathToGit = require('path').join(appRoot, '.git')
 
 async function isDirty () {
   try {
@@ -16,6 +14,9 @@ async function isDirty () {
 }
 
 async function hasGit () {
+  const pathToPkgJson = await require('pkg-up')()
+  const pathToGit = path.join(path.parse(pathToPkgJson).dir, '.git')
+
   try {
     await pathExists(pathToGit)
     return true

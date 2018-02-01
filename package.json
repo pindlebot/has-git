@@ -10,9 +10,9 @@
     "fix": "standard --fix --verbose | snazzy"
   },
   "dependencies": {
-    "app-root-path": "^2.0.1",
     "execa": "^0.9.0",
-    "lodash.set": "^4.3.2"
+    "lodash.set": "^4.3.2",
+    "pkg-up": "^2.0.0"
   },
   "devDependencies": {
     "snazzy": "^7.0.0",
