@@ -30,6 +30,11 @@ async function listUntracked (cwd) {
   return run(['ls-files', '--exclude-standard', '--others'], { cwd })
 }
 
+async function listTracked (cwd) {
+  // git ls-files
+  return run(['ls-files'], { cwd })
+}
+
 async function isDirty (cwd) {
   try {
     await execa(['diff-index', '--quiet', 'HEAD', '--'], { cwd })
@@ -72,5 +77,6 @@ module.exports = {
   getConfig,
   listUntracked,
   listGitignored,
-  moduleRoot
+  moduleRoot,
+  listTracked
 }
