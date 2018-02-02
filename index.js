@@ -42,7 +42,7 @@ async function isDirty (cwd) {
 async function hasGit (cwd) {
   if (!cwd) cwd = await moduleRoot()
 
-  const pathToGit = path.join(path.parse(cwd).dir, '.git')
+  const pathToGit = path.join(cwd, '.git')
 
   try {
     await pathExists(pathToGit)
