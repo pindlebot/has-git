@@ -29,7 +29,7 @@ async function getConfig () {
   try {
     let remotes = await execa('git', ['config', '--list'])
 
-    return remotes.stdout.split(/[\r\n]+/g)
+    return remotes.stdout.split(/\r?\n/g)
       .reduce((acc, val) =>
         set(acc, val.split('=')[0], val.split('=')[1]), {}
       )
