@@ -1,8 +1,13 @@
 ## has-git
 
-- hasGit: Checks whether git is initialized for the project.
-- getConfig: Returns the project's git config with `git config --list`
-- isDirty: Checks whether the project has untracked changes.
+### hasGit([cwd]): Promise<T | F>
+- Checks whether git is initialized for the project. 
+
+### getConfig([cwd]): Promise<{}>
+- Returns the project's git config with `git config --list`
+
+## isDirty([cwd]): Promise<T | F>
+- Checks whether the project has untracked changes. Does not check for untracked files.
 
 ```js
 const { hasGit, getConfig, isDirty } = require('has-git')

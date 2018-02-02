@@ -1,21 +1,48 @@
 const fs = require('fs')
 const path = require('path')
 const pathExists = require('util').promisify(fs.access)
-const execa = require('execa')
 const set = require('lodash.set')
+const exec = require('execa')
+const moduleRoot = async () => path.parse(await require('pkg-up')()).dir
 
-async function isDirty () {
+async function execa (...args) {
+  if (!args[args.length - 1].cwd) {
+    args[args.length - 1].cwd = await moduleRoot()
+  }
+  args.unshift('git')
+  return exec(...args)
+}
+
+async function run (...args) {
+  let result = await execa(...args)
+
+  return result.stdout.split(/\r?\n/)
+    .filter(line => line !== '')
+}
+
+async function listGitignored (cwd) {
+  // git ls-files --ignored --exclude-standard --others
+  return run(['ls-files', '--ignored', '--exclude-standard', '--others'], { cwd })
+}
+
+async function listUntracked (cwd) {
+  // git ls-files --exclude-standard --others
+  return run(['ls-files', '--exclude-standard', '--others'], { cwd })
+}
+
+async function isDirty (cwd) {
   try {
-    await execa('git', ['diff-index', '--quiet', 'HEAD', '--'])
+    await execa(['diff-index', '--quiet', 'HEAD', '--'], { cwd })
     return false
   } catch (err) {
     return true
   }
 }
 
-async function hasGit () {
-  const pathToPkgJson = await require('pkg-up')()
-  const pathToGit = path.join(path.parse(pathToPkgJson).dir, '.git')
+async function hasGit (cwd) {
+  if (!cwd) cwd = await moduleRoot()
+
+  const pathToGit = path.join(path.parse(cwd).dir, '.git')
 
   try {
     await pathExists(pathToGit)
@@ -25,11 +52,12 @@ async function hasGit () {
   }
 }
 
-async function getConfig () {
+async function getConfig (cwd) {
   try {
-    let remotes = await execa('git', ['config', '--list'])
+    // git config --list
+    const remotes = await run(['config', '--list'], { cwd })
 
-    return remotes.stdout.split(/\r?\n/g)
+    return remotes
       .reduce((acc, val) =>
         set(acc, val.split('=')[0], val.split('=')[1]), {}
       )
@@ -41,5 +69,8 @@ async function getConfig () {
 module.exports = {
   isDirty,
   hasGit,
-  getConfig
+  getConfig,
+  listUntracked,
+  listGitignored,
+  moduleRoot
 }
