@@ -71,12 +71,23 @@ async function getConfig (cwd) {
   }
 }
 
+async function getShortSHA (cwd) {
+  // git rev-parse --short HEAD
+  try {
+    let result = await run(['rev-parse', '--short', 'HEAD'], { cwd })
+    return result.find(r => r)
+  } catch (err) {
+    return undefined
+  }
+}
+
 module.exports = {
   isDirty,
   hasGit,
   getConfig,
+  listTracked,
   listUntracked,
   listGitignored,
   moduleRoot,
-  listTracked
+  getShortSHA
 }
